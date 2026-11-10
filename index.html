@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pet Center Animais | Tudo para o seu pet</title>
+<meta name="description" content="Pet shop com banho e tosa, rações, acessórios e muito carinho pelo seu pet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #2f7d5b;
+    --verde-escuro: #1f5a41;
+    --laranja: #f28c38;
+    --creme: #fff8ef;
+    --texto: #2b2b2b;
+    --cinza: #6b6b6b;
+    --branco: #ffffff;
+    --raio: 16px;
+    --sombra: 0 8px 24px rgba(0,0,0,.08);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+  body {
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--texto);
+    background: var(--branco);
+    line-height: 1.6;
+  }
+  h1, h2, h3 { font-family: "Nunito", system-ui, sans-serif; line-height: 1.2; }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+  .container { width: min(1100px, 92%); margin: 0 auto; }
+  section { padding: 72px 0; }
+  .titulo-secao { text-align: center; margin-bottom: 40px; }
+  .titulo-secao h2 { font-size: clamp(1.8rem, 4vw, 2.4rem); color: var(--verde-escuro); }
+  .titulo-secao p { color: var(--cinza); margin-top: 8px; }
+
+  .btn {
+    display: inline-block;
+    padding: 14px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: transform .2s, background .2s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-principal { background: var(--laranja); color: var(--branco); }
+  .btn-principal:hover { background: #e07a24; }
+  .btn-secundario { border: 2px solid var(--branco); color: var(--branco); }
+
+  /* Header */
+  header {
+    position: sticky; top: 0; z-index: 10;
+    background: #0b1d33;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 10px rgba(0,0,0,.05);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; gap: 16px; flex-wrap: wrap; }
+  .logo { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 1.4rem; color: var(--verde); text-decoration: none; }
+  .logo span { color: var(--laranja); }
+  .links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .links a { text-decoration: none; font-weight: 500; color: #ffffff; }
+  .links a:hover { color: var(--laranja); }
+  .nav .btn { padding: 10px 20px; font-size: .95rem; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, var(--verde) 0%, var(--verde-escuro) 100%);
+    color: var(--branco);
+    padding: 90px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero .container { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); margin-bottom: 16px; }
+  .hero p { font-size: 1.1rem; opacity: .95; margin-bottom: 28px; max-width: 520px; }
+  .hero-botoes { display: flex; gap: 14px; flex-wrap: wrap; }
+  .hero-visual {
+    font-size: clamp(7rem, 16vw, 11rem);
+    text-align: center;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,.2));
+  }
+
+  /* Fundo do hero com o logo desfocado nas cores do site */
+  .hero .container { position: relative; z-index: 1; }
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: -60px;
+    background: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAA0JCgsKCA0LCgsODg0PEyAVExISEyccHhcgLikxMC4pLSwzOko+MzZGNywtQFdBRkxOUlNSMj5aYVpQYEpRUk//2wBDAQ4ODhMREyYVFSZPNS01T09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0//wAARCABAAEADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwDgKKKK6DEKKKKACiiigAooooAKKnsolnvreF87ZJVRsehIFdveab4RsvE39hyWN48kzqvmiY4iLAYAHfqOTnrSbsNI4Giuul02PQxeRJMPNiuDGZvJ8wheo47cEVXe2sLrVbNppBC7KrMrQFROc8YHbNZyqqKbfQ6Pqz5VK+pzNFdFrGmWDa15aX0MBlkAePZgRDbnOeBz+HWqw0JCyZ1bT0Rzgb5fmA56gZAPHr+NOlVVSCkupjODhJxZjUVoX2l/YrcSm/s5ckAJFIWbv7cdKz60ILOmkLqdozEACdCSe3zCu58S+KotO8U3O3SbG6uLfaILpvvL8oPOOuCT6V57RSauNOxux61HNNJc3MlzBdysWllgwRIfdTUbX9pJqVpIolOyZWkuJ2yxAPTA4ArGoqXTTua/WJ8vKa+qX0aeJpL2ARXCI6soblWIA/PmnHX8tK39ladmXJb91nJJyT1559fSsaiiEFCKj2M5Scm33NqPX40Bxo2m8n5sRkbhxxjPTgVju252YKFBJOB0HtTaKuxIUUUUAFFFFABRRRQAUUUUAf/Z") center / cover no-repeat;
+    filter: blur(22px) saturate(1.3);
+    opacity: .6;
+    z-index: 0;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(47,125,91,.9) 0%, rgba(31,90,65,.94) 100%);
+    z-index: 0;
+  }
+
+  /* Logo igual à marca */
+  .logo { font-family: "Nunito", sans-serif; font-weight: 800; font-size: 1.5rem; letter-spacing: -.01em; color: #0b1d33; }
+  .logo .l-p { color: #0b1d33; }
+  .logo .l-e { color: #e8697d; }
+  .logo .l-t { color: #e3a02b; }
+  .logo .l-c { color: #0b1d33; font-size: .85em; }
+
+  /* Servicos */
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
+  .card {
+    background: var(--creme);
+    border-radius: var(--raio);
+    padding: 32px 26px;
+    box-shadow: var(--sombra);
+    transition: transform .25s;
+  }
+  .card:hover { transform: translateY(-6px); }
+  .card .icone { font-size: 2.6rem; margin-bottom: 14px; }
+  .card h3 { color: var(--verde-escuro); font-size: 1.25rem; margin-bottom: 8px; }
+  .card p { color: var(--cinza); font-size: .97rem; }
+  .preco { margin-top: 14px; font-weight: 600; color: var(--laranja); }
+
+  /* Sobre */
+  .sobre { background: var(--creme); }
+  .sobre .container { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center; }
+  .sobre-visual {
+    background: var(--branco);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+    padding: 40px;
+    text-align: center;
+    font-size: 6rem;
+  }
+  .sobre h2 { color: var(--verde-escuro); font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 16px; }
+  .sobre p { color: var(--cinza); margin-bottom: 14px; }
+  .numeros { display: flex; gap: 28px; margin-top: 24px; flex-wrap: wrap; }
+  .numeros strong { display: block; font-family: "Nunito", sans-serif; font-size: 1.8rem; color: var(--verde); }
+  .numeros span { font-size: .9rem; color: var(--cinza); }
+
+  /* Depoimentos */
+  .depoimentos { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .depoimento {
+    border-left: 4px solid var(--laranja);
+    padding: 22px 24px;
+    background: var(--branco);
+    box-shadow: var(--sombra);
+    border-radius: 12px;
+  }
+  .depoimento p { font-style: italic; color: var(--texto); margin-bottom: 12px; }
+  .depoimento small { color: var(--verde); font-weight: 600; }
+
+  /* Contato */
+  .contato { background: var(--verde-escuro); color: var(--branco); }
+  .contato .titulo-secao h2 { color: var(--branco); }
+  .contato .titulo-secao p { color: rgba(255,255,255,.85); }
+  .contato-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; text-align: center; }
+  .info {
+    background: rgba(255,255,255,.08);
+    border-radius: var(--raio);
+    padding: 28px 20px;
+  }
+  .info .icone { font-size: 2rem; margin-bottom: 10px; }
+  .info h3 { font-size: 1.1rem; margin-bottom: 6px; }
+  .info p { font-size: .95rem; opacity: .9; }
+  .contato .btn-whats {
+    display: inline-block; margin-top: 36px;
+    background: #25d366; color: var(--branco);
+  }
+
+  footer { background: #163d2d; color: rgba(255,255,255,.75); text-align: center; padding: 24px 0; font-size: .9rem; }
+
+  /* Responsivo */
+  @media (max-width: 780px) {
+    .hero .container, .sobre .container { grid-template-columns: 1fr; text-align: center; }
+    .hero p { margin-left: auto; margin-right: auto; }
+    .hero-botoes { justify-content: center; }
+    .hero-visual { order: -1; font-size: 6rem; }
+    .sobre-visual { font-size: 4.5rem; }
+    .numeros { justify-content: center; }
+    section { padding: 56px 0; }
+    .links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a href="#inicio" class="logo"><img src="data:image/jpeg;base64,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" alt="Pet Center Animais" style="display:none;">
+<img src="data:image/jpeg;base64,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" alt="pet Center Animais" style="height:52px;width:auto;display:block;border-radius:8px;">
+</a>
+    <nav class="links">
+      <a href="#servicos">Serviços</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#depoimentos">Clientes</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a href="#contato" class="btn btn-principal">Agendar banho</a>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->
+  <section class="hero" id="inicio" style="padding: 90px 0;">
+    <div class="container">
+      <div>
+        <h1>Seu pet merece o melhor cuidado</h1>
+        <p>Banho, tosa, rações, brinquedos e acessórios com atendimento carinhoso e produtos de qualidade para toda a família de quatro patas.</p>
+        <div class="hero-botoes">
+          <a href="#contato" class="btn btn-principal">Agendar agora</a>
+          <a href="#servicos" class="btn btn-secundario">Ver serviços</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">🐶🐱</div>
+    </div>
+  </section>
+
+  <!-- Servicos -->
+  <section id="servicos">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Nossos serviços</h2>
+        <p>Tudo que seu pet precisa em um só lugar</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="icone">🛁</div>
+          <h3>Banho</h3>
+          <p>Banho com shampoo específico para o tipo de pelagem, secagem cuidadosa e perfume suave.</p>
+          <div class="preco">A partir de R$ 50</div>
+        </article>
+        <article class="card">
+          <div class="icone">✂️</div>
+          <h3>Tosa</h3>
+          <p>Tosa higiênica, tosa na máquina ou na tesoura, sempre respeitando o conforto do animal.</p>
+          <div class="preco">A partir de R$ 70</div>
+        </article>
+        <article class="card">
+          <div class="icone">🦴</div>
+          <h3>Rações e petiscos</h3>
+          <p>Marcas premium e opções para filhotes, adultos e idosos, com orientação de quem entende.</p>
+          <div class="preco">Consulte as marcas</div>
+        </article>
+        <article class="card">
+          <div class="icone">🎾</div>
+          <h3>Brinquedos e acessórios</h3>
+          <p>Coleiras, guias, camas, caminhas e brinquedos resistentes para diversão garantida.</p>
+          <div class="preco">Novidades toda semana</div>
+        </article>
+        <article class="card">
+          <div class="icone">🐟</div>
+          <h3>Aquarismo</h3>
+          <p>Ração para peixes, aquários, decoração e acessórios para o seu aquário.</p>
+          <div class="preco">Consulte os produtos</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sobre -->
+  <section class="sobre" id="sobre">
+    <div class="container">
+      <div>
+        <h2>Quem somos</h2>
+        <p>Somos uma equipe apaixonada por animais. Acreditamos que cada pet é parte da família, por isso tratamos cada atendimento com atenção e carinho.</p>
+        <p>Nosso espaço foi pensado para deixar o seu companheiro tranquilo, do primeiro banho até a última escolha de produto.</p>
+        <div class="numeros">
+          <div><strong>87</strong><span>Avaliações no Google</span></div>
+          <div><strong>Entrega</strong><span>Também fazemos entrega</span></div>
+          <div><strong>4.6★</strong><span>Avaliação no Google</span></div>
+        </div>
+      </div>
+      <div class="sobre-visual" aria-hidden="true">🐾</div>
+    </div>
+  </section>
+
+  <!-- Depoimentos -->
+  <section id="depoimentos">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>O que dizem nossos clientes</h2>
+        <p>Histórias de quem já confiou na gente</p>
+      </div>
+      <div class="depoimentos">
+        <div class="depoimento">
+          <p>"Atendimento excelente, variedade ótima de produtos e uma área de peixes maravilhosa. Tudo limpo e organizado."</p>
+          <small>Grasiela M., cliente no Google</small>
+        </div>
+        <div class="depoimento">
+          <p>"Excelente atendimento, ótimas opções de produtos e bons preços. Dedicação também na área de aquarismo."</p>
+          <small>Vilson T., Guia Local · cliente no Google</small>
+        </div>
+        <div class="depoimento">
+          <p>"Sempre bem atendidos por profissionais especializados, ótima qualidade e preço impecável. Ambiente limpo e organizado."</p>
+          <small>Chrystian A., cliente no Google</small>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Entrega e retirada -->
+  <section id="entrega" style="background: var(--creme);">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Entrega e retirada na loja</h2>
+        <p>Escolha a opção que for mais prática para você</p>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <div class="icone">🏬</div>
+          <h3>Retirada na loja</h3>
+          <p>Faça seu pedido e retire na loja no horário de funcionamento.</p>
+          <div class="preco">Sem taxa</div>
+        </article>
+        <article class="card">
+          <div class="icone">🛵</div>
+          <h3>Entrega em domicílio</h3>
+          <p>Receba suas compras em casa. Consulte a área de entrega e o prazo.</p>
+          <div class="preco">Consulte a taxa</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contato -->
+  <section class="contato" id="contato">
+    <div class="container">
+      <div class="titulo-secao">
+        <h2>Venha nos visitar</h2>
+        <p>Agende um horário ou tire suas dúvidas</p>
+      </div>
+      <div class="contato-grid">
+        <div class="info">
+          <div class="icone">📍</div>
+          <h3>Endereço</h3>
+          <p>R. Nereu Ramos, 769<br>Xanxerê - SC</p>
+        </div>
+        <div class="info">
+          <div class="icone">🕒</div>
+          <h3>Horário</h3>
+          <p>Seg a Sex: 08:00–12:00 e 13:30–18:30<br>Sábado: 08:00–12:00<br>Domingo: fechado<br><small>Os horários podem ser diferentes em feriados</small></p>
+        </div>
+        <div class="info">
+          <div class="icone">📞</div>
+          <h3>Telefone</h3>
+          <p>(49) 3433-3635</p>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <a href="tel:+554934333635" class="btn btn-whats">Ligar agora</a>
+        <a href="https://www.instagram.com/petcenteranimais/?hl=pt" class="btn btn-secundario" target="_blank" rel="noopener" style="margin-top:36px; margin-left:12px;">Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Pet Center Animais. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+</body>
+</html>
